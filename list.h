@@ -1,0 +1,34 @@
+#ifndef LIST_H
+#define LIST_H
+
+#include <iostream>
+#include <stdexcept>
+
+
+template <typename T>
+
+class list{
+	 
+
+	
+	public: 
+	virtual ~list(){}	
+	virtual void insert(int pos, T e) = 0;
+	list();
+	virtual void append(T e) = 0;
+	virtual void prepend(T e) = 0;
+	virtual T remove(int pos)= 0;
+	virtual T get(int pos) = 0;
+	virtual int search() = 0;
+	virtual bool empty() = 0;
+	virtual int size()= 0; 
+
+
+
+
+
+
+
+
+};
+#endif 
