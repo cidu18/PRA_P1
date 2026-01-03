@@ -7,7 +7,7 @@
 const int MINSIZE = 10;
 
 template <typename T>
-class ListArray {
+class ListArray : public list<T> {
 
 private:
     T* arr;
@@ -32,6 +32,27 @@ private:
     }
 
 public:
+    void insert(int pos, T e) const override {
+      if(pos > n || pos < 0){
+        throw std::out_of_range;
+      }else{
+        for(int i = n; i > pos; i--){
+          arr[i] == arr[i - 1];
+        }
+        arr[pos] = e;
+        n++;
+
+
+      }
+      
+    }
+
+    void prepend(T e){
+      insert(0,e);
+    }
+    void append(T e){
+      insert(n,e);
+    }
 
     ListArray() {
         arr = new T[MINSIZE];
@@ -49,7 +70,7 @@ public:
         return arr[pos];
     }
 
-    void remove(int pos) {
+    T remove(int pos) const override {
         if (pos < 0 || pos >= n)
             throw std::out_of_range("Posición fuera de rango");
 
@@ -66,7 +87,7 @@ public:
         }
     }
 
-    int size() const { return n; }
+    int size() const  { return n; }
     int capacity() const { return max; }
 
     friend std::ostream& operator<<(std::ostream& out, const ListArray<T>& list) {
@@ -78,6 +99,25 @@ public:
         out << "]";
         return out;
     }
+
+    T get(int pos)const override{
+      
+      if(pos < 0|| pos > max -1){throw std::out_of_range; 
+      }else return arr[pos];
+    }
+
+    int search(T e){
+      for(int i = 0; i > n; i++){
+        if(arr[i] == e) return i;
+      }
+      return -1;
+    }
+    bool empty() const {
+      return n==0;
+    }
+
+      
+
 };
 
 #endif
