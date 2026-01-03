@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include "list.h"
 
 const int MINSIZE = 10;
 
@@ -16,44 +17,16 @@ private:
 
     void resize(int new_size) {
         T* nuevo = new T[new_size];
-
         int limite = (n < new_size ? n : new_size);
         for (int i = 0; i < limite; i++) {
             nuevo[i] = arr[i];
         }
-
         delete[] arr;
-
         arr = nuevo;
         max = new_size;
-
-        if (n > max)
-            n = max;
     }
 
 public:
-    void insert(int pos, T e) const override {
-      if(pos > n || pos < 0){
-        throw std::out_of_range;
-      }else{
-        for(int i = n; i > pos; i--){
-          arr[i] == arr[i - 1];
-        }
-        arr[pos] = e;
-        n++;
-
-
-      }
-      
-    }
-
-    void prepend(T e){
-      insert(0,e);
-    }
-    void append(T e){
-      insert(n,e);
-    }
-
     ListArray() {
         arr = new T[MINSIZE];
         n = 0;
@@ -64,31 +37,68 @@ public:
         delete[] arr;
     }
 
-    T operator[](int pos) const {
-        if (pos < 0 || pos >= n)
-            throw std::out_of_range("Posición fuera de rango");
-        return arr[pos];
+    void insert(int pos, T e) override {
+        if (pos < 0 || pos > n) {
+            throw std::out_of_range("Posicion fuera de rango");
+        }
+        if (n == max) {
+            resize(max * 2);
+        }
+        for (int i = n; i > pos; i--) {
+            arr[i] = arr[i - 1];
+        }
+        arr[pos] = e;
+        n++;
     }
 
-    T remove(int pos) const override {
-        if (pos < 0 || pos >= n)
-            throw std::out_of_range("Posición fuera de rango");
+    void prepend(T e) override {
+        insert(0, e);
+    }
 
+    void append(T e) override {
+        insert(n, e);
+    }
+
+    T remove(int pos) override {
+        if (pos < 0 || pos >= n) {
+            throw std::out_of_range("Posicion fuera de rango");
+        }
+        T valor = arr[pos];
         for (int i = pos; i < n - 1; i++) {
             arr[i] = arr[i + 1];
         }
-
         n--;
-
         if (n < max / 4 && max > MINSIZE) {
-            int nuevo_tam = max / 2;
-            if (nuevo_tam < MINSIZE) nuevo_tam = MINSIZE;
-            resize(nuevo_tam);
+            resize(max / 2);
         }
+        return valor;
     }
 
-    int size() const  { return n; }
-    int capacity() const { return max; }
+    T get(int pos) override {
+        if (pos < 0 || pos >= n) {
+            throw std::out_of_range("Posicion fuera de rango");
+        }
+        return arr[pos];
+    }
+
+    int search(T e) override {
+        for (int i = 0; i < n; i++) {
+            if (arr[i] == e) return i;
+        }
+        return -1;
+    }
+
+    bool empty() override {
+        return n == 0;
+    }
+
+    int size() override {
+        return n;
+    }
+
+    T operator[](int pos) {
+        return get(pos);
+    }
 
     friend std::ostream& operator<<(std::ostream& out, const ListArray<T>& list) {
         out << "[";
@@ -99,26 +109,6 @@ public:
         out << "]";
         return out;
     }
-
-    T get(int pos)const override{
-      
-      if(pos < 0|| pos > max -1){throw std::out_of_range; 
-      }else return arr[pos];
-    }
-
-    int search(T e){
-      for(int i = 0; i > n; i++){
-        if(arr[i] == e) return i;
-      }
-      return -1;
-    }
-    bool empty() const {
-      return n==0;
-    }
-
-      
-
 };
 
 #endif
-
