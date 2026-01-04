@@ -1,18 +1,17 @@
-#ifndef POINT2D_H
-#define POINT2D_H
+#ifndef P2D_H
+#define P2D_H
 
 #include <iostream>
 #include <cmath>
-#include <iostream>
 
 class Point2D{
   private: 
     
-    static double cordx;
-    static double cordy;
+     double cordx;
+     double cordy;
 
   public:
-    Point2D(double x = 0, double y = 0){}
+    Point2D(double x = 0, double y = 0) : cordx(x), cordy(y){}
 
     static double distance(const Point2D &a, const Point2D &b){
       
@@ -25,9 +24,16 @@ class Point2D{
       return dist; 
       
     }
-     bool friend operator==(const Point2D &a, const Point2D &b){
+      bool friend operator!=(const Point2D &a, const Point2D &b){
       
-      return !(a.cordx == b.cordy);
+      return (a.cordx != b.cordy);
+
+
+
+    } 
+    bool friend operator==(const Point2D &a, const Point2D &b){
+      
+      return (a.cordx == b.cordy);
 
 
 
@@ -35,6 +41,7 @@ class Point2D{
     friend std::ostream& operator<<(std::ostream &out, const Point2D &p){
        
         out << p.cordx << "," << p.cordy << std::endl;
+        return out; 
 
 
 

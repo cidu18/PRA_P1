@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Point2D.h"
+#include "p2d.h"
     
 int main(){
     std::cout << std::boolalpha; // config. para mostrar true/false en lugar de 0/1.
