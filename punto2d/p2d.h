@@ -12,7 +12,8 @@ class Point2D{
 
   public:
     Point2D(double x = 0, double y = 0) : cordx(x), cordy(y){}
-
+    double get_x() const { return cordx; }
+    double get_y() const { return cordy; }
     static double distance(const Point2D &a, const Point2D &b){
       
       double dx = a.cordx - b.cordx;
