@@ -18,7 +18,11 @@ class Rectangle : public Shape {
 
     }
     double perimeter() override {
-      return area()*2;
+      double base, altura;
+      
+      base = Point2D::distance(vs[0], vs[1]);
+      altura = Point2D::distance(vs[1], vs[2]);
+      return (base+altura)*2;
        
     }
     void translate( double incX, double incY ) override {
@@ -30,7 +34,7 @@ class Rectangle : public Shape {
 
      } 
     }
-    void print() override {
+    virtual void print() override {
     std::cout << *this;
     }
 
@@ -52,7 +56,7 @@ class Rectangle : public Shape {
     }
 
     Rectangle(std::string color, Point2D* vertices): Shape(color){
-      if (!check(vertices)) {
+      if (check(vertices)) {
             throw std::invalid_argument("Vértices no válidos para un rectángulo.");
         }
         vs = new Point2D[N_VERTICES];
@@ -72,7 +76,7 @@ class Rectangle : public Shape {
 
 
     
-    Point2D get_vertex(int ind)const {
+    Point2D get_vertex(int ind) const {
       if(ind < 0 || ind >= N_VERTICES){
         throw std::invalid_argument("Fuera del rango");
       }
@@ -81,6 +85,7 @@ class Rectangle : public Shape {
           return vs[ind];
         }
       }
+      return -1;
     }
     
     Point2D operator[](int ind) const {
@@ -122,7 +127,7 @@ class Rectangle : public Shape {
 
 
     friend std::ostream& operator<<(std::ostream &out, const Rectangle &r) {
-     out << "Rectangle [color: " << r.get_color() << ", center: " << r.get_center() << "]\nVertices: ";
+     out << "Rectangle [color: " << r.get_color() << "\nVertices: ";
       for(int i = 0; i < 4; i++){
         out << "v" << i << r.vs[i] << " ";
       }
