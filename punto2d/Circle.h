@@ -1,3 +1,6 @@
+#ifndef CIRCLE_H
+#define CIRCLE_H
+
 #include <iostream>
 #include "Shape.h"
 #include <ostream>
@@ -60,3 +63,4 @@ class Circle : public Shape {
 
 
 };
+#endif

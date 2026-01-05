@@ -1,3 +1,6 @@
+#ifndef RECTANGLE_H
+#define RECTANGLE_H
+
 #include <iostream>
 #include "Shape.h"
 #include <ostream>
@@ -130,7 +133,7 @@ class Rectangle : public Shape {
     friend std::ostream& operator<<(std::ostream &out, const Rectangle &r) {
      out << "Rectangle [color: " << r.get_color() << "\nVertices: ";
       for(int i = 0; i < 4; i++){
-        out << "v" << i << r.vs[i] << " ";
+        out << "v" << i << "" << r.vs[i] << " ";
       }
      return out;
     }
@@ -138,3 +141,4 @@ class Rectangle : public Shape {
 
 
 };
+#endif
