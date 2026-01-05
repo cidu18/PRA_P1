@@ -11,5 +11,8 @@ bin/testCircle: testCircle.cpp Circle.h Shape.h p2d.h
 bin/testRectangle: testRectangle.cpp Rectangle.h Shape.h
 	mkdir -p bin
 	g++ -std=c++11 -Wall testRectangle.cpp -o bin/testRectangle
+bin/testSquare: testSquare.cpp Rectangle.h Shape.h
+	mkdir -p bin
+	g++ -std=c++11 -Wall testSquare.cpp -o bin/testSquare
 clean:
 	rm -rf bin:

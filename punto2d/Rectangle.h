@@ -3,12 +3,13 @@
 #include <ostream>
 #include <cmath>
 class Rectangle : public Shape {
-  private:
+  protected:
     Point2D* vs; 
-    static int const N_VERTICES = 4; 
+   
 
 
   public:
+    static int const N_VERTICES = 4; 
     //Virtuales heredados
     double area() override {
       double base, altura;
